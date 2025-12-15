@@ -1,0 +1,23 @@
+__pycache__/
+*.pt
+
+# Unity - 忽略除 Assets 和 ProjectSettings 以外的文件夹
+Unity/*/Library/
+Unity/*/Temp/
+Unity/*/Logs/
+Unity/*/obj/
+Unity/*/Build/
+Unity/*/Builds/
+Unity/*/UserSettings/
+Unity/*/*.sln
+Unity/*/*.csproj
+Unity/*/*.suo
+Unity/*/*.user
+Unity/*/*.unityproj
+Unity/*/*.pidb
+Unity/*/*.booproj
+Unity/*/*.svd
+Unity/*/*.pdb
+Unity/*/*.mdb
+Unity/*/*.opendb
+Unity/*/*.VC.db
