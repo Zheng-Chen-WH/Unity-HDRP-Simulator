@@ -143,6 +143,87 @@ class UnityClient:
     def reset(self):
         """Reset the environment."""
         return self._send_request('reset')
+    
+    def set_time_scale(self, time_scale):
+        """Set the simulation time scale (1 = real-time, 60 = 1 minute = 1 hour)."""
+        return self._send_request('set_time_scale', {'time_scale': time_scale})
+    
+    def get_time_scale(self):
+        """Get current time scale and simulation time."""
+        return self._send_request('get_time_scale')
+    
+    def set_orbit(self, orbit_altitude_km):
+        """
+        Set satellite orbit altitude in kilometers.
+        Returns orbital period in seconds.
+        
+        Example altitudes:
+        - 400 km: Low Earth Orbit (LEO), ~90 min period
+        - 35786 km: Geostationary Orbit (GEO), ~24 hour period
+        """
+        return self._send_request('set_orbit', {'orbit_altitude': orbit_altitude_km})
+    
+    def save_image(self, camera_name="MainCamera", width=1920, height=1080, file_path=None):
+        """
+        Capture and save an image from Unity to disk.
+        
+        Args:
+            camera_name: Name of the camera in Unity
+            width: Image width
+            height: Image height
+            file_path: Full path where to save (optional, auto-generated if None)
+        
+        Returns:
+            dict with 'file_path' and 'size' if successful
+        """
+        return self._send_request('save_image', {
+            'camera_name': camera_name,
+            'width': width,
+            'height': height,
+            'file_path': file_path or ""
+        })
+    
+    def update_satellite_pose(self, name, position, rotation):
+        """
+        Update satellite position and rotation (optimized for frequent updates).
+        This is the same as set_object_pose but with a clearer name for satellites.
+        
+        Args:
+            name: Object name in Unity
+            position: [x, y, z] in Unity units
+            rotation: [roll, pitch, yaw] in degrees
+        """
+        return self.set_object_pose(name, position, rotation)
+    
+    def update_earth_rotation(self, name, rotation_y):
+        """
+        Update Earth rotation around Y axis.
+        
+        Args:
+            name: Earth object name in Unity
+            rotation_y: Rotation angle in degrees
+        """
+        return self.set_object_pose(name, [0, 0, 0], [0, rotation_y, 0])
+    
+    def batch_update_poses(self, updates):
+        """
+        Update multiple object poses in one request (future optimization).
+        
+        Args:
+            updates: List of dicts with 'name', 'position', 'rotation'
+        
+        Note: This requires Unity server support for batch commands.
+        For now, it calls update_satellite_pose multiple times.
+        """
+        results = []
+        for update in updates:
+            result = self.update_satellite_pose(
+                update['name'],
+                update['position'],
+                update['rotation']
+            )
+            results.append(result)
+        return results
 
 if __name__ == "__main__":
     client = UnityClient()

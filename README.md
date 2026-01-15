@@ -37,23 +37,7 @@ The `UnityClient` class provides the following methods to interact with the simu
 *   **`reset()`**: Reset the environment (e.g., move satellite back to origin).
 *   **`disconnect()`**: Close the connection.
 
-## 4. Unity Key Concepts & Shortcuts
-
-For users new to Unity, here are some essential tips:
-
-*   **Scene View Navigation**:
-    *   **Right-click + WASD**: Fly around the scene.
-    *   **Right-click + Mouse Move**: Look around.
-    *   **Scroll Wheel**: Zoom in/out.
-*   **Object Manipulation**:
-    *   **Hierarchy Panel (Left)**: List of all objects in the scene.
-    *   **Inspector Panel (Right)**: Properties of the selected object.
-    *   **`F` Key**: Focus camera on the selected object (Crucial for finding lost objects!).
-    *   **`Ctrl + Shift + F`**: Align the selected object (e.g., camera) to the current Scene View.
-*   **Important Rule**:
-    *   **NEVER** make permanent changes to the scene while in **Play Mode**. Changes made during Play Mode will be lost when you stop. Always **Stop (▶)** -> **Edit** -> **Save (Ctrl+S)**.
-
-## 5. Current Features
+## 4. Current Features
 *   **HDRP Rendering**: Realistic space lighting with physical units (Lux) and correct shadows.
 *   **Dual Camera System**:
     *   `MainCamera`: Mounted on the satellite for RL observation.
@@ -61,9 +45,9 @@ For users new to Unity, here are some essential tips:
 *   **TCP Communication**: Robust JSON-based protocol for real-time control.
 *   **Custom Planet Shaders**: Two high-quality Earth rendering shaders with realistic lighting effects.
 
-## 6. Planet Shader System
+## 5. Planet Shader System
 
-### 6.1 Available Shaders
+### 5.1 Available Shaders
 
 #### **Earth Shader** (`Assets/Shaders/Earth.shader`)
 A streamlined shader optimized for performance:
@@ -84,7 +68,7 @@ An advanced shader with full artistic control:
 *   **Smart Ocean Detection**: Uses specular texture if available, falls back to brightness detection.
 *   **All Earth Shader features** plus enhanced visual fidelity.
 
-### 6.2 Lighting Synchronization System
+### 5.2 Lighting Synchronization System
 
 Both shaders use the `SunSynchronizer.cs` script to automatically sync with Unity's Directional Light:
 

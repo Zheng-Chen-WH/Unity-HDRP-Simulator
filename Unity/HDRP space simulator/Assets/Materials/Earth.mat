@@ -27,12 +27,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: fe291fffbbf2f834fb076ded04466eda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _CloudsTex:
+        m_Texture: {fileID: 2800000, guid: fe291fffbbf2f834fb076ded04466eda, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DiffuseTex:
         m_Texture: {fileID: 2800000, guid: 521c473bd713eff468f556acaf453a9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NightTex:
+        m_Texture: {fileID: 2800000, guid: fe291fffbbf2f834fb076ded04466eda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalAndSpecularTex:
@@ -43,16 +51,16 @@ Material:
     m_Floats:
     - _AtmosphereMultiply: 2.63
     - _AtmospherePow: 5.33
-    - _OceanShininess: 0
+    - _OceanShininess: 0.082
     - _SpecularIntensity: 0.26
-    - _SpecularPower: 64.3
+    - _SpecularPower: 59.4
     - _SunsetIntensity: 0.7464286
     m_Colors:
     - _AtmosphereColor: {r: 0.6313726, g: 0.7411765, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _LightDir: {r: 0.5, g: 0.4, b: 0.3, a: 0.1}
     - _SkyColor: {r: 0.08235294, g: 0.18431373, b: 0.3529412, a: 1}
-    - _SunColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SunDir: {r: -0.98601615, g: -0.008796506, b: 0.16641839, a: 0}
+    - _SunColor: {r: 1.16, g: 1.16, b: 1.16, a: 1.16}
+    - _SunDir: {r: 0.78149515, g: 0.23964381, b: -0.57605225, a: 0}
     - _SunsetColor: {r: 0.8980392, g: 0.4117647, b: 0.14509805, a: 1}
   m_BuildTextureStacks: []

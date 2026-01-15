@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.IO;
 using UnityEngine;
 
 [Serializable]
@@ -15,7 +16,7 @@ public class CommandData
     public string camera_name;
     public int width;
     public int height;
-    public float dt;
+    public string file_path;
 }
 
 public class SimulationServer : MonoBehaviour
@@ -99,13 +100,40 @@ public class SimulationServer : MonoBehaviour
                     break;
 
                 case "reset":
-                    // 简单重置：把 Sat1 归零。
-                    // 在实际项目中，你可能需要重置整个场景或重新加载 Scene
+                    // 简单重置：把 Sat1 归零
+                    // 注意：时间控制现在在Python端，Unity只负责渲染
                     GameObject sat = GameObject.Find("Sat1");
                     if (sat != null)
                     {
                         sat.transform.position = initialPos;
                         sat.transform.rotation = initialRot;
+                    }
+                    break;
+                
+                case "save_image":
+                    byte[] imageData = CaptureImage(data.camera_name, data.width, data.height);
+                    if (imageData != null && imageData.Length > 0)
+                    {
+                        string savePath = data.file_path;
+                        if (string.IsNullOrEmpty(savePath))
+                        {
+                            savePath = Path.Combine(Application.dataPath, "..", "Screenshots", 
+                                                   $"capture_{System.DateTime.Now:yyyyMMdd_HHmmss}.png");
+                        }
+                        
+                        // 确保目录存在
+                        string directory = Path.GetDirectoryName(savePath);
+                        if (!Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+                        
+                        File.WriteAllBytes(savePath, imageData);
+                        responseJson = $"{{\"status\":\"ok\", \"file_path\":\"{savePath.Replace("\\", "\\\\")}\", \"size\":{imageData.Length}}}";
+                    }
+                    else
+                    {
+                        responseJson = "{\"status\":\"error\", \"message\":\"Failed to capture image\"}";
                     }
                     break;
             }

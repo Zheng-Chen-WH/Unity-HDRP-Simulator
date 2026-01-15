@@ -6,8 +6,8 @@ public class SunSynchronizer : MonoBehaviour
     [Tooltip("场景里的真实太阳光")]
     public Light sunLight;
 
-    [Tooltip("地球的材质球")]
-    public Material earthMaterial;
+    [Tooltip("需要同步光照的所有材质（地球+大气层）")]
+    public Material[] materials;
 
     [Tooltip("光照强度缩放（HDRP光源很亮，可能需要调整）")]
     [Range(0.01f, 1f)]
@@ -26,7 +26,7 @@ public class SunSynchronizer : MonoBehaviour
 
     void Update()
     {
-        if (sunLight == null || earthMaterial == null) return;
+        if (sunLight == null || materials == null || materials.Length == 0) return;
 
         // 获取光源方向（指向太阳）
         Vector3 lightDir = -sunLight.transform.forward;
@@ -34,8 +34,14 @@ public class SunSynchronizer : MonoBehaviour
         // 获取光源颜色，根据需要缩放强度
         Color lightColor = sunLight.color * (sunLight.intensity * intensityScale);
 
-        // 传给 Shader
-        earthMaterial.SetVector(sunDirID, lightDir);
-        earthMaterial.SetColor(sunColorID, lightColor); 
+        // 传给所有材质的 Shader
+        foreach (var mat in materials)
+        {
+            if (mat != null)
+            {
+                mat.SetVector(sunDirID, lightDir);
+                mat.SetColor(sunColorID, lightColor);
+            }
+        }
     }
 }
